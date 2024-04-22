@@ -1,0 +1,55 @@
+<!--<p>home works!</p>-->
+<mat-drawer-container autosize style="height: 100%;">
+    <mat-drawer #drawer mode="side">
+        <button mat-icon-button>
+            <mat-icon>favorite</mat-icon>
+        </button>
+    </mat-drawer>
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>To Do App</span>
+    <span class="example-spacer"></span>
+<div>
+    <button mat-icon-button>
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button>
+        <mat-icon>share</mat-icon>
+    </button> 
+</div>    
+</mat-toolbar>
+<div style="display:flex;flex-direction: column;">
+<mat-form-field>
+    <mat-label>Task Title</mat-label>
+    <input matInput [(ngModel)]="taskTitle">
+    <button matSuffix mat-icon-button area-label="Clear" (click)="taskTitle=''" >
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Task Subtitle</mat-label>
+    <textarea matInput [(ngModel)]="taskSubtitle"></textarea>
+    <button matSuffix mat-icon-button area-label="Clear" (click)="taskSubtitle=''" >
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="addTaskToList();">Add Task</button>
+@for (item of tasksList; track $index) {
+
+    <mat-card [ngClass]="item.done === true?'task-completed':'task-not-completed'">
+        <mat-card-header [ngClass]="item.done === true?'line-through':''">
+            <mat-card-title>{{item['title']}}</mat-card-title>
+            <mat-card-subtitle>{{item['subtitle']}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button mat-button (click)="deleteTask(item);"><mat-icon>delete</mat-icon></button>
+            <button mat-button (click)="markTaskDone(item);" [disabled]="item.done === true"><mat-icon>done</mat-icon></button>
+        </mat-card-actions>
+    </mat-card>
+
+
+}
+</div>
+</mat-drawer-container>
